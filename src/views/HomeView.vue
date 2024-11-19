@@ -1,6 +1,6 @@
 <script setup>
 import HeroItem from '@/components/HeroItem.vue'
-import TaskListings from '@/components/TaskListings.vue'
+import TopicListings from '@/components/TopicListings.vue'
 import ImpressumItem from '@/components/ImpressumItem.vue'
 import NavbarItem from '@/components/NavbarItem.vue'
 </script>
@@ -8,6 +8,6 @@ import NavbarItem from '@/components/NavbarItem.vue'
 <template>
   <NavbarItem />
   <HeroItem />
-  <TaskListings :limit="3" :showButton="true" />
+  <TopicListings :limit="3" :showButton="true" />
   <ImpressumItem />
 </template>

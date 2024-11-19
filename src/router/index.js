@@ -1,8 +1,9 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '@/views/HomeView.vue'
-import TasksView from '@/views/TasksView.vue'
+import TopicsView from '@/views/TopicsView.vue'
+import LevelView from '@/views/LevelView.vue'
 import NotFoundView from '@/views/NotFoundView.vue'
-import TaskView from '@/views/TaskView.vue'
+import TopicView from '@/views/TopicView.vue'
 import AboutUsView from '@/views/AboutUsView.vue'
 import ProgressView from '@/views/ProgressView.vue'
 
@@ -12,15 +13,21 @@ const router = createRouter({
     { path: '/', name: 'home', component: HomeView },
 
     {
-      path: '/tasks',
-      name: 'tasks',
-      component: TasksView,
+      path: '/topics',
+      name: 'topics',
+      component: TopicsView,
     },
 
     {
-      path: '/tasks/:id(\\d+)', //'/jobs/:id(\\d+)' für nur Zahlen als ID
-      name: 'task',
-      component: TaskView,
+      path: '/topics/:id(\\d+)', //'/jobs/:id(\\d+)' für nur Zahlen als ID
+      name: 'topic',
+      component: TopicView,
+    },
+
+    {
+      path: '/topics/:topicId/level/:levelId', //'/jobs/:id(\\d+)' für nur Zahlen als ID
+      name: 'level',
+      component: LevelView,
     },
 
     {
