@@ -25,12 +25,12 @@ const truncatedDescription = computed(() => {
 
 <template>
   <div class="bg-white rounded-xl shadow-md relative">
-    <div class="p-4">
-      <div class="mb-6">
-        <h3 class="text-xl font-bold">{{ task.title }}</h3>
+    <div class="p-3 sm:p-4">
+      <div class="mb-4 sm:mb-6">
+        <h3 class="text-lg sm:text-xl font-bold">{{ task.title }}</h3>
       </div>
 
-      <div class="mb-5">
+      <div class="mb-4 sm:mb-5">
         <div>{{ truncatedDescription }}</div>
         <button
           @click="toggleFullDescription"

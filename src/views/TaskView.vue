@@ -48,18 +48,22 @@ onMounted(async () => {
       <div class="grid grid-cols-1 md:grid-cols-70/30 w-full gap-6">
         <main>
           <div
-            class="bg-white p-6 rounded-lg shadow-md text-center md:text-left"
+            class="bg-white p-4 sm:p-6 rounded-lg shadow-md text-center md:text-left"
           >
-            <h1 class="text-3xl font-bold mb-4">{{ state.task.title }}</h1>
+            <h1 class="text-2xl sm:text-3xl font-bold mb-2 sm:mb-4">
+              {{ state.task.title }}
+            </h1>
             <div
               class="text-gray-500 flex align-middle justify-center md:justify-start"
             ></div>
           </div>
 
-          <div class="bg-white p-6 rounded-lg shadow-md mt-6">
-            <h3 class="text-blue-800 text-lg font-bold mb-6">Description</h3>
+          <div class="bg-white p-4 sm:p-6 rounded-lg shadow-md mt-4 sm:mt-6">
+            <h3 class="text-blue-800 text-lg font-bold mb-4 sm:mb-6">
+              Description
+            </h3>
 
-            <p class="mb-4">
+            <p class="mb-2 sm:mb-4">
               {{ state.task.description }}
             </p>
           </div>

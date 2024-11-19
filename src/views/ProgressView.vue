@@ -5,11 +5,15 @@ import { RouterLink } from 'vue-router'
 
 <template>
   <NavbarItem />
-  <section class="text-center flex flex-col justify-center items-center h-96">
-    <div class="mt-10 flex flex-col items-center">
-      <i class="pi pi-cog text-blue-500 text-6xl mb-3 animate-spin"></i>
-      <p class="text-2xl font-semibold">Work in Progress</p>
-      <p class="text-lg">
+  <section
+    class="text-center flex flex-col justify-center items-center min-h-[24rem] sm:h-96"
+  >
+    <div class="mt-8 sm:mt-10 flex flex-col items-center">
+      <i
+        class="pi pi-cog text-blue-500 text-4xl sm:text-6xl mb-2 sm:mb-3 animate-spin"
+      ></i>
+      <p class="text-xl sm:text-2xl font-semibold">Work in Progress</p>
+      <p class="text-base sm:text-lg">
         We are working hard to bring you new features. Stay tuned!
       </p>
     </div>

@@ -37,10 +37,9 @@ onMounted(async () => {
         BROWSE TASKS
       </h2>
       <!--Show loading spinner while loading is true-->
-      <div v-if="state.isLoading" class="text-center text-gray-500 py-6">
+      <div v-if="state.isLoading" class="flex justify-center items-center p-4">
         <PulseLoader color="#1D4ED8" />
       </div>
-
       <!--Show task listings when loading is false-->
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
         <TaskListing

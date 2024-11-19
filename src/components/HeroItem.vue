@@ -3,7 +3,7 @@ import hero from '@/assets/img/hero.png'
 </script>
 
 <template>
-  <section class="bg-gray-300 py-10 mb-4">
+  <section class="bg-gray-300 py-10 sm:py-12 mb-4">
     <div
       class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center"
     >
