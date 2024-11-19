@@ -55,36 +55,6 @@ const isActiveLink = routePath => {
                 ]"
                 >TASKS</RouterLink
               >
-              <RouterLink
-                to="/progress"
-                :class="[
-                  isActiveLink('/progress') ? 'bg-blue-900' : '',
-                  'hover:bg-blue-900',
-                  'hover:text-white',
-                  'text-white',
-                  'px-3',
-                  'py-2',
-                  'rounded-md',
-                  'font-bold',
-                  'ml-2',
-                ]"
-                >PROGRESS</RouterLink
-              >
-              <RouterLink
-                to="/about"
-                :class="[
-                  isActiveLink('/about') ? 'bg-blue-900' : '',
-                  'hover:bg-blue-900',
-                  'hover:text-white',
-                  'text-white',
-                  'px-3',
-                  'py-2',
-                  'rounded-md',
-                  'font-bold',
-                  'ml-2',
-                ]"
-                >ABOUT</RouterLink
-              >
             </div>
           </div>
         </div>
