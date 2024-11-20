@@ -7,7 +7,7 @@
       "levels": [
         {
           "level": 1,
-          "title": "Basic Addition",
+          "title": "BASIC ADDITION",
           "description": "Adding single digit numbers (1-9)",
           "difficulty": "Beginner",
           "tasks": [
@@ -40,7 +40,7 @@
         },
         {
           "level": 2,
-          "title": "Double Digits",
+          "title": "Double Digits Addition",
           "description": "Adding two-digit numbers (10-99)",
           "difficulty": "Elementary",
           "tasks": [
@@ -73,7 +73,7 @@
         },
         {
           "level": 3,
-          "title": "Multiple Numbers",
+          "title": "Multiple Numbers Addition",
           "description": "Adding three or more numbers",
           "difficulty": "Intermediate",
           "tasks": [

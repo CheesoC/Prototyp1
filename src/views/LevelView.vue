@@ -2,6 +2,7 @@
 import { reactive, onMounted } from 'vue'
 import BackButton from '@/components/BackButton.vue'
 import PulseLoader from 'vue-spinner/src/PulseLoader.vue'
+import LevelButtons from '@/components/LevelButtons.vue'
 import { useRoute } from 'vue-router'
 import axios from 'axios'
 
@@ -16,8 +17,12 @@ const state = reactive({
 
 onMounted(async () => {
   try {
-    const response = await axios.get(`/api/topics/${topicId}/level/${levelId}`)
-    state.level = response.data
+    const response = await axios.get('/api/topics')
+    const topics = response.data
+    const topic = topics.find(t => t.id === topicId)
+    if (topic) {
+      state.level = topic.levels.find(l => l.level === parseInt(levelId))
+    }
   } catch (error) {
     console.error('Error fetching level:', error)
   } finally {
@@ -28,7 +33,7 @@ onMounted(async () => {
 
 <template>
   <BackButton />
-  <section v-if="!state.isLoading" class="bg-blue-100">
+  <section v-if="!state.isLoading" class="bg-white">
     <div class="container mx-auto py-10 px-4 sm:px-6 lg:px-8">
       <div class="grid grid-cols-1 md:grid-cols-70/30 w-full gap-6">
         <main>
@@ -56,4 +61,5 @@ onMounted(async () => {
   <div v-else class="text-center text-gray-500 py-6">
     <PulseLoader color="#1D4ED8" />
   </div>
+  <LevelButtons />
 </template>
