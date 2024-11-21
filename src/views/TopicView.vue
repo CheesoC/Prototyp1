@@ -19,6 +19,7 @@ onMounted(async () => {
   try {
     const response = await axios.get(`/api/topics/${topicId}`)
     state.topic = response.data
+    console.log('Fetched topic:', state.topic)
   } catch (error) {
     console.error('Error fetching topic', error)
   } finally {

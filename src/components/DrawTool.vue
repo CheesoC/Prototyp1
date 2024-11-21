@@ -17,7 +17,7 @@ const endDrawing = () => {
 
 const draw = event => {
   if (!drawing) return
-  ctx.lineWidth = 5
+  ctx.lineWidth = 3
   ctx.lineCap = 'round'
   ctx.strokeStyle = 'black'
 
@@ -52,13 +52,41 @@ onBeforeUnmount(() => {
   <div class="absolute inset-0 z-40">
     <canvas
       ref="canvasRef"
-      class="w-full h-full rounded-lg border border-gray-300"
+      class="w-full h-full border border-gray-300"
     ></canvas>
   </div>
 </template>
 
 <style scoped>
-canvas {
-  border: 1px solid #000;
+/* DAS MUSS UNBEDINGT IN STYLES:CSS ausgekapselt werden*/
+.level-view-container {
+  position: relative;
+}
+
+.back-button {
+  position: relative;
+  z-index: 20; /* Ensure it is above the draw tool */
+}
+
+.level-buttons {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  z-index: 20; /* Ensure it is above the draw tool */
+}
+
+.draw-tool {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10; /* Ensure it is below the buttons */
+  background: rgba(
+    255,
+    255,
+    255,
+    0.5
+  ); /* Optional: Add a background to distinguish it */
 }
 </style>
