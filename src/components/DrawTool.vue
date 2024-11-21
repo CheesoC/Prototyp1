@@ -49,8 +49,11 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <div class="absolute inset-0 z-50">
-    <canvas ref="canvasRef" class="w-full h-full"></canvas>
+  <div class="absolute inset-0 z-40">
+    <canvas
+      ref="canvasRef"
+      class="w-full h-full rounded-lg border border-gray-300"
+    ></canvas>
   </div>
 </template>
 
