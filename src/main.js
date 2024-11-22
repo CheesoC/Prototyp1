@@ -3,6 +3,8 @@ import 'primeicons/primeicons.css'
 import Toast from 'vue-toastification'
 import 'vue-toastification/dist/index.css'
 import router from './router'
+import naive from 'naive-ui'
+
 import { createApp } from 'vue'
 import App from './App.vue'
 
@@ -32,5 +34,6 @@ const app = createApp(App)
 
 app.use(router)
 app.use(Toast, toastOptions)
+app.use(naive)
 
 app.mount('#app')

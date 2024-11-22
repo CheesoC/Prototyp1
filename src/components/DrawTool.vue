@@ -1,9 +1,61 @@
 <script setup>
-import { ref, onMounted, onBeforeUnmount } from 'vue'
+import { ref, onMounted } from 'vue'
 
 const canvasRef = ref(null)
 let ctx = null
 let drawing = false
+let backupCanvas = null
+let backupCtx = null
+let originalWidth = 0
+let originalHeight = 0
+
+const initializeBackupCanvas = () => {
+  backupCanvas = document.createElement('canvas')
+  backupCtx = backupCanvas.getContext('2d')
+}
+
+const saveDrawing = () => {
+  if (!backupCanvas || !canvasRef.value) return
+
+  // Store original dimensions
+  originalWidth = canvasRef.value.width
+  originalHeight = canvasRef.value.height
+
+  backupCanvas.width = originalWidth
+  backupCanvas.height = originalHeight
+  backupCtx.drawImage(canvasRef.value, 0, 0)
+}
+
+const restoreDrawing = () => {
+  if (!backupCanvas || !canvasRef.value) return
+
+  // Calculate scale factors
+  const scaleX = canvasRef.value.width / originalWidth
+  const scaleY = canvasRef.value.height / originalHeight
+
+  // Clear current canvas
+  ctx.clearRect(0, 0, canvasRef.value.width, canvasRef.value.height)
+
+  // Scale and draw
+  ctx.save()
+  ctx.scale(scaleX, scaleY)
+  ctx.drawImage(backupCanvas, 0, 0)
+  ctx.restore()
+}
+
+const setCanvasSize = () => {
+  const canvas = canvasRef.value
+  if (!canvas) return
+
+  saveDrawing()
+
+  const parent = canvas.parentElement
+  canvas.width = parent.clientWidth
+  canvas.height = parent.clientHeight
+
+  ctx = canvas.getContext('2d')
+  restoreDrawing()
+}
 
 const startDrawing = event => {
   drawing = true
@@ -13,10 +65,12 @@ const startDrawing = event => {
 const endDrawing = () => {
   drawing = false
   ctx.beginPath()
+  saveDrawing()
 }
 
 const draw = event => {
   if (!drawing) return
+
   ctx.lineWidth = 3
   ctx.lineCap = 'round'
   ctx.strokeStyle = 'black'
@@ -31,33 +85,48 @@ const draw = event => {
   ctx.moveTo(x, y)
 }
 
+const handleTouch = event => {
+  event.preventDefault()
+  const touch = event.touches[0]
+  draw(touch)
+}
+
 onMounted(() => {
-  ctx = canvasRef.value.getContext('2d')
-  canvasRef.value.width = canvasRef.value.offsetWidth
-  canvasRef.value.height = canvasRef.value.offsetHeight
+  initializeBackupCanvas()
+  setCanvasSize()
+  window.addEventListener('resize', setCanvasSize)
 
-  canvasRef.value.addEventListener('mousedown', startDrawing)
-  canvasRef.value.addEventListener('mouseup', endDrawing)
-  canvasRef.value.addEventListener('mousemove', draw)
-})
+  const canvas = canvasRef.value
+  canvas.addEventListener('mousedown', startDrawing)
+  canvas.addEventListener('mousemove', draw)
+  canvas.addEventListener('mouseup', endDrawing)
+  canvas.addEventListener('mouseleave', endDrawing)
 
-onBeforeUnmount(() => {
-  canvasRef.value.removeEventListener('mousedown', startDrawing)
-  canvasRef.value.removeEventListener('mouseup', endDrawing)
-  canvasRef.value.removeEventListener('mousemove', draw)
+  canvas.addEventListener('touchstart', handleTouch)
+  canvas.addEventListener('touchmove', handleTouch)
+  canvas.addEventListener('touchend', endDrawing)
 })
 </script>
 
 <template>
-  <div class="absolute inset-0 z-40">
-    <canvas
-      ref="canvasRef"
-      class="w-full h-full border border-gray-300"
-    ></canvas>
+  <div class="draw-tool-container">
+    <canvas ref="canvasRef" class="draw-canvas"></canvas>
   </div>
 </template>
 
 <style scoped>
+.draw-tool-container {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.draw-canvas {
+  width: 100%;
+  height: 100%;
+  touch-action: none;
+}
+
 /* DAS MUSS UNBEDINGT IN STYLES:CSS ausgekapselt werden*/
 .level-view-container {
   position: relative;
@@ -81,7 +150,7 @@ onBeforeUnmount(() => {
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: 10; /* Ensure it is below the buttons */
+  z-index: 5; /* Ensure it is below the buttons */
   background: rgba(
     255,
     255,
