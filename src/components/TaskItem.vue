@@ -23,7 +23,7 @@ const loadRandomTask = () => {
     if (availableTasks.length === 0 || completedTaskCount.value >= 5) {
       shownTaskIds.value = []
       availableTasks = state.level.tasks
-      alert('Level completed! Well done!')
+      //alert('You have completed all tasks!') // Alert when all tasks are completed
     }
 
     // Pick random task from available ones
@@ -49,8 +49,9 @@ const checkSolution = () => {
   emit('solutionChecked', isCorrect)
 
   if (isCorrect) {
+    emit('updateProgress', 20) // Emit event to update progress
     completedTaskCount.value++
-    alert('Correct! Well done!')
+    //alert('Correct! Well done!')
     setTimeout(() => {
       loadRandomTask()
     }, 10) // Wait for alert to close
@@ -92,20 +93,27 @@ onMounted(async () => {
 <template>
   <div class="min-h-screen flex flex-col">
     <div class="text-center p-4">
-      <h1>Level {{ state.level.level }} - {{ state.level.title }}</h1>
+      <h1
+        class="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-4xl font-bold"
+      >
+        Level {{ state.level.level }} - {{ state.level.title }}
+      </h1>
     </div>
 
     <div
       v-if="!state.isLoading"
-      class="flex items-center justify-center h-screen mt-[-10%]"
+      class="flex items-center justify-center min-h-screen fixed inset-0"
     >
-      <p class="text-4xl font-bold">{{ state.task.problem }} =</p>
+      <h1
+        class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold"
+      >
+        {{ state.task.problem }} =
+      </h1>
       <!--Solution Input -->
       <input
         v-model="userInput"
         type="text"
-        class="ml-4 p-2 border border-gray-300 rounded"
-        placeholder="Your answer"
+        class="ml-2 sm:ml-3 md:ml-4 w-20 sm:w-24 md:w-28 lg:w-32 xl:w-36 text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-4xl p-1 sm:p-1.5 md:p-2 lg:p-2.5 xl:p-3 border border-gray-300 rounded"
       />
     </div>
 

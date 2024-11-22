@@ -9,6 +9,7 @@ import Progressbar from '@/components/ProgressBar.vue'
 import DrawTool from '@/components/DrawTool.vue'
 
 const showDrawTool = ref(false)
+const progress = ref(0) // Initialize progress
 
 const toggleDrawTool = () => {
   showDrawTool.value = !showDrawTool.value
@@ -23,13 +24,17 @@ const handleSkip = () => {
 function onSolveClick() {
   taskItemRef.value.checkSolution()
 }
+
+const updateProgress = value => {
+  progress.value += value
+}
 </script>
 
 <template>
   <div class="h-screen overflow-hidden flex flex-col">
     <BackButton class="back-button" />
-    <Progressbar />
-    <TaskItem ref="taskItemRef" />
+    <Progressbar :progress="progress" />
+    <TaskItem ref="taskItemRef" @updateProgress="updateProgress" />
     <DrawTool
       v-if="showDrawTool"
       class="draw-tool absolute inset-0 bottom-[72px]"
