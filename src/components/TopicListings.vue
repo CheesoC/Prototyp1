@@ -20,7 +20,7 @@ const state = reactive({
 
 onMounted(async () => {
   try {
-    const response = await axios.get('/api/topics')
+    const response = await axios.get('https://ezmath-data1.onrender.com/topics')
     state.topics = response.data
   } catch (error) {
     console.error('Error fetching topics', error)
