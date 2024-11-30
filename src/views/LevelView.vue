@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref } from 'vue'
 import BackButton from '@/components/BackButton.vue'
 import TaskItem from '@/components/TaskItem.vue'
 import ButtonDraw from '@/components/ButtonDraw.vue'
@@ -10,7 +10,6 @@ import DrawTool from '@/components/DrawTool.vue'
 
 const showDrawTool = ref(false)
 const progress = ref(0) // Initialize progress
-const viewportHeight = ref(window.innerHeight) // Store the viewport height
 
 const toggleDrawTool = () => {
   showDrawTool.value = !showDrawTool.value
@@ -29,25 +28,10 @@ function onSolveClick() {
 const updateProgress = value => {
   progress.value += value
 }
-
-const updateViewportHeight = () => {
-  viewportHeight.value = window.innerHeight
-}
-
-onMounted(() => {
-  window.addEventListener('resize', updateViewportHeight)
-})
-
-onUnmounted(() => {
-  window.removeEventListener('resize', updateViewportHeight)
-})
 </script>
 
 <template>
-  <div
-    :style="{ height: viewportHeight + 'px' }"
-    class="overflow-hidden flex flex-col"
-  >
+  <div class="h-screen overflow-hidden flex flex-col">
     <BackButton class="back-button" />
     <Progressbar :progress="progress" />
     <TaskItem ref="taskItemRef" @updateProgress="updateProgress" />
