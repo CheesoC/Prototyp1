@@ -9,20 +9,20 @@ import App from './App.vue'
 
 // Toast configuration options
 const toastOptions = {
-  position: 'top-right',
-  timeout: 3000,
+  position: 'top-center',
+  timeout: 2000,
   closeOnClick: true,
   pauseOnFocusLoss: true,
-  pauseOnHover: true,
+  pauseOnHover: false,
   draggable: true,
   draggablePercent: 0.6,
   showCloseButtonOnHover: false,
-  hideProgressBar: false,
+  hideProgressBar: true,
   closeButton: 'button',
   icon: true,
   rtl: false,
   transition: 'Vue-Toastification__bounce',
-  maxToasts: 20,
+  maxToasts: 1,
   toastClassName: 'custom-toast-class',
   bodyClassName: ['custom-body-class'],
   // Custom styles

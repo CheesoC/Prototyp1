@@ -1,8 +1,16 @@
 <script setup>
 import { reactive, onMounted, ref } from 'vue'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import axios from 'axios'
 import PulseLoader from 'vue-spinner/src/PulseLoader.vue'
+import { useToast } from 'vue-toastification'
+
+const toast = useToast()
+const router = useRouter()
+
+const correctSound = new Audio('/sounds/correct.mp3')
+const falseSound = new Audio('/sounds/false.mp3')
+const levelCompleteSound = new Audio('/sounds/levelpass.mp3')
 
 // Solution Checking
 const emit = defineEmits(['solutionChecked'])
@@ -24,6 +32,13 @@ const loadRandomTask = () => {
       shownTaskIds.value = []
       availableTasks = state.level.tasks
       //alert('You have completed all tasks!') // Alert when all tasks are completed
+      router.back()
+      setTimeout(() => {
+        toast.success('Level complete! Great job!')
+        setTimeout(() => {
+          levelCompleteSound.play()
+        }, 200)
+      }, 300)
     }
 
     // Pick random task from available ones
@@ -41,22 +56,25 @@ const skipTask = () => {
 }
 
 const checkSolution = () => {
-  const cleanedInput = userInput.value.trim()
+  let cleanedInput = userInput.value.trim()
+  cleanedInput = parseFloat(cleanedInput).toString() // Convert to number and back to string to remove trailing zeros
   const isCorrect = cleanedInput === state.task.solution
-  console.log('Task solution:', state.task.solution)
-  console.log('User input:', userInput.value)
-  console.log('Checking solution:', isCorrect)
   emit('solutionChecked', isCorrect)
-
   if (isCorrect) {
     emit('updateProgress', 20) // Emit event to update progress
     completedTaskCount.value++
-    //alert('Correct! Well done!')
-    setTimeout(() => {
-      loadRandomTask()
-    }, 10) // Wait for alert to close
+    if (completedTaskCount.value < 5) {
+      toast.success('Correct! Well done!')
+      setTimeout(() => {
+        correctSound.play()
+      }, 200)
+    }
+    loadRandomTask()
   } else {
-    alert('Wrong answer, try again!')
+    toast.error('Incorrect, try again.')
+    setTimeout(() => {
+      falseSound.play()
+    }, 200)
   }
 }
 
@@ -115,6 +133,7 @@ onMounted(async () => {
       <input
         v-model="userInput"
         type="text"
+        inputmode="decimal"
         class="ml-2 sm:ml-3 md:ml-4 w-20 sm:w-24 md:w-28 lg:w-32 xl:w-36 text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-4xl p-1 sm:p-1.5 md:p-2 lg:p-2.5 xl:p-3 border border-gray-300 rounded"
       />
     </div>

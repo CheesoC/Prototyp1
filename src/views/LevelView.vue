@@ -18,7 +18,7 @@ const toggleDrawTool = () => {
 const taskItemRef = ref()
 
 const handleSkip = () => {
-  taskItemRef.value.skipTask() // Changed from skip() to skipTask()
+  taskItemRef.value.skipTask()
 }
 
 function onSolveClick() {
