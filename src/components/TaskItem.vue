@@ -122,7 +122,7 @@ onMounted(async () => {
 
     <div
       v-if="!state.isLoading"
-      class="flex items-center justify-center min-h-screen fixed inset-0"
+      class="flex items-center justify-center fixed inset-0"
     >
       <h1
         class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold"
