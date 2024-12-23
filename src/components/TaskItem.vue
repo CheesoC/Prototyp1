@@ -13,7 +13,7 @@ const falseSound = new Audio('/sounds/false.mp3')
 const levelCompleteSound = new Audio('/sounds/levelpass.mp3')
 
 // Solution Checking
-const emit = defineEmits(['solutionChecked'])
+const emit = defineEmits(['solutionChecked', 'levelCompleted'])
 const userInput = ref('')
 
 const shownTaskIds = ref([])
@@ -31,7 +31,7 @@ const loadRandomTask = () => {
     if (availableTasks.length === 0 || completedTaskCount.value >= 5) {
       shownTaskIds.value = []
       availableTasks = state.level.tasks
-      //alert('You have completed all tasks!') // Alert when all tasks are completed
+      emit('levelCompleted')
       router.back()
       setTimeout(() => {
         toast.success('Level complete! Great job!')

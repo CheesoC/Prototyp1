@@ -1,5 +1,6 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
+import { useRoute } from 'vue-router'
 import BackButton from '@/components/BackButton.vue'
 import TaskItem from '@/components/TaskItem.vue'
 import ButtonDraw from '@/components/ButtonDraw.vue'
@@ -7,15 +8,17 @@ import ButtonSkip from '@/components/ButtonSkip.vue'
 import ButtonSolve from '@/components/ButtonSolve.vue'
 import Progressbar from '@/components/ProgressBar.vue'
 import DrawTool from '@/components/DrawTool.vue'
+import { saveProgress, loadProgress } from '@/utils/localStorage'
 
 const showDrawTool = ref(false)
-const progress = ref(0) // Initialize progress
+const progress = ref(0)
+const taskItemRef = ref()
+const topicId = ref(null)
+const levelId = ref(null)
 
 const toggleDrawTool = () => {
   showDrawTool.value = !showDrawTool.value
 }
-
-const taskItemRef = ref()
 
 const handleSkip = () => {
   taskItemRef.value.skipTask()
@@ -27,7 +30,35 @@ function onSolveClick() {
 
 const updateProgress = value => {
   progress.value += value
+  if (progress.value >= 100) {
+    markLevelCompleted()
+  }
 }
+
+const markLevelCompleted = () => {
+  const completedLevels = loadProgress('completedLevels') || {}
+  if (!completedLevels[topicId.value]) {
+    completedLevels[topicId.value] = []
+  }
+  if (!completedLevels[topicId.value].includes(levelId.value.toString())) {
+    completedLevels[topicId.value].push(levelId.value.toString())
+    saveProgress('completedLevels', completedLevels)
+  }
+}
+
+onMounted(() => {
+  const route = useRoute()
+  topicId.value = route.params.topicId
+  levelId.value = route.params.levelId
+
+  const completedLevels = loadProgress('completedLevels') || {}
+  if (
+    completedLevels[topicId.value] &&
+    completedLevels[topicId.value].includes(levelId.value.toString())
+  ) {
+    // Level is completed, but do not set progress to 100%
+  }
+})
 </script>
 
 <template>
