@@ -85,10 +85,42 @@ const draw = event => {
   ctx.moveTo(x, y)
 }
 
-const handleTouch = event => {
+const startTouchDrawing = event => {
   event.preventDefault()
+  drawing = true
   const touch = event.touches[0]
-  draw(touch)
+  const rect = canvasRef.value.getBoundingClientRect()
+  const x = touch.clientX - rect.left
+  const y = touch.clientY - rect.top
+
+  ctx.beginPath()
+  ctx.moveTo(x, y)
+}
+
+const drawTouch = event => {
+  event.preventDefault()
+  if (!drawing) return
+
+  const touch = event.touches[0]
+  const rect = canvasRef.value.getBoundingClientRect()
+  const x = touch.clientX - rect.left
+  const y = touch.clientY - rect.top
+
+  ctx.lineWidth = 3
+  ctx.lineCap = 'round'
+  ctx.strokeStyle = 'black'
+
+  ctx.lineTo(x, y)
+  ctx.stroke()
+  ctx.beginPath()
+  ctx.moveTo(x, y)
+}
+
+const endTouchDrawing = event => {
+  event.preventDefault()
+  drawing = false
+  ctx.beginPath()
+  saveDrawing()
 }
 
 onMounted(() => {
@@ -102,9 +134,10 @@ onMounted(() => {
   canvas.addEventListener('mouseup', endDrawing)
   canvas.addEventListener('mouseleave', endDrawing)
 
-  canvas.addEventListener('touchstart', handleTouch)
-  canvas.addEventListener('touchmove', handleTouch)
-  canvas.addEventListener('touchend', endDrawing)
+  canvas.addEventListener('touchstart', startTouchDrawing, { passive: false })
+  canvas.addEventListener('touchmove', drawTouch, { passive: false })
+  canvas.addEventListener('touchend', endTouchDrawing)
+  canvas.addEventListener('touchcancel', endTouchDrawing)
 })
 </script>
 
