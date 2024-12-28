@@ -13,6 +13,7 @@ const topicId = route.params.id
 const state = reactive({
   topic: {},
   isLoading: true,
+  showDescription: false, // Add this line
 })
 
 onMounted(async () => {
@@ -34,30 +35,40 @@ onMounted(async () => {
   <NavbarItem />
   <BackButton />
   <section v-if="!state.isLoading" class="bg-blue-100">
-    <div class="container mx-auto py-10 px-4 sm:px-6 lg:px-8">
+    <div
+      class="container mx-auto py-4 sm:py-6 md:py-8 lg:py-10 px-4 sm:px-6 lg:px-8"
+    >
       <div class="grid grid-cols-1 md:grid-cols-70/30 w-full gap-6">
         <main>
           <div
-            class="bg-white p-4 sm:p-6 rounded-lg shadow-md text-center md:text-left"
+            class="bg-white p-2 sm:p-4 rounded-lg shadow-md text-center md:text-left"
           >
-            <h1 class="text-2xl sm:text-3xl font-bold mb-2 sm:mb-4">
-              {{ state.topic.title }}
-            </h1>
             <div
-              class="text-gray-500 flex align-middle justify-center md:justify-start"
-            ></div>
-          </div>
-
-          <div class="bg-white p-4 sm:p-6 rounded-lg shadow-md mt-4 sm:mt-6">
-            <h3 class="text-blue-800 text-lg font-bold mb-4 sm:mb-6">
-              Description
-            </h3>
-            <p class="mb-2 sm:mb-4">{{ state.topic.description }}</p>
+              class="flex items-center justify-center md:justify-start gap-2"
+            >
+              <h1 class="text-xl sm:text-2xl font-bold">
+                {{ state.topic.title }}
+              </h1>
+              <button
+                @click="state.showDescription = !state.showDescription"
+                class="text-blue-500 hover:text-blue-700"
+              >
+                <i
+                  class="pi"
+                  :class="
+                    state.showDescription ? 'pi-chevron-up' : 'pi-chevron-down'
+                  "
+                ></i>
+              </button>
+            </div>
+            <p v-if="state.showDescription" class="mt-2 text-gray-600">
+              {{ state.topic.description }}
+            </p>
           </div>
         </main>
       </div>
       <!-- Card Items Grid -->
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
+      <div class="grid grid-cols-2 sm:grid-cols-3 gap-4 sm:gap-6 mt-4 sm:mt-6">
         <CardItem
           v-for="level in state.topic.levels"
           :key="level.level"

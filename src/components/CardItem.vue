@@ -31,9 +31,9 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="bg-white rounded-xl shadow-md relative p-4">
+  <div class="bg-white rounded-xl shadow-md relative p-2 sm:p-4">
     <div
-      class="p-4 relative group"
+      class="p-2 sm:p-4 relative group"
       @mouseenter="isHovered = true"
       @mouseleave="isHovered = false"
     >
@@ -43,15 +43,18 @@ onMounted(() => {
       >
         <div
           :class="[
-            'transition-all duration-300 hover:scale-105 h-auto min-h-[150px] rounded-lg flex flex-col items-center justify-center text-center cursor-pointer',
+            'transition-all duration-300 hover:scale-105 h-auto min-h-[100px] sm:min-h-[150px] rounded-lg flex flex-col items-center justify-center text-center cursor-pointer',
             isLevelCompleted
               ? 'bg-green-500 hover:bg-green-600'
               : 'bg-blue-500 hover:bg-blue-600',
           ]"
         >
-          <h2 class="text-2xl font-bold mb-2 text-white">
-            {{ isHovered ? props.level.title : `Level ${props.level.level}` }}
+          <h2 class="text-lg sm:text-2xl font-bold mb-1 sm:mb-2 text-white">
+            Level {{ props.level.level }}
           </h2>
+          <p class="text-sm sm:text-lg font-semibold text-white">
+            {{ props.level.title }}
+          </p>
         </div>
       </RouterLink>
     </div>

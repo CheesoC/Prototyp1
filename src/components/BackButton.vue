@@ -10,7 +10,9 @@ const goBack = () => {
 
 <template>
   <section class="bg-blue-100">
-    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+    <div
+      class="max-w-7xl mx-auto py-1 pb-0 sm:py-2 sm:pb-1 md:py-3 md:pb-2 px-4 sm:px-6 lg:px-8"
+    >
       <div class="flex justify-start">
         <button
           @click="goBack"
