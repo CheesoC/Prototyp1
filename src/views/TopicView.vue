@@ -1,6 +1,5 @@
 <script setup>
 import PulseLoader from 'vue-spinner/src/PulseLoader.vue'
-import BackButton from '@/components/BackButton.vue'
 import NavbarItem from '@/components/NavbarItem.vue'
 import CardItem from '@/components/CardItem.vue'
 import { reactive, onMounted } from 'vue'
@@ -33,7 +32,6 @@ onMounted(async () => {
 
 <template>
   <NavbarItem />
-  <BackButton />
   <section v-if="!state.isLoading" class="bg-blue-100">
     <div
       class="container mx-auto py-4 sm:py-6 md:py-8 lg:py-10 px-4 sm:px-6 lg:px-8"
