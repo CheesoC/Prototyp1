@@ -16,6 +16,7 @@ const props = defineProps({
 
 const isHovered = ref(false)
 const isLevelCompleted = ref(false)
+const hoveredTask = ref(null)
 
 onMounted(() => {
   const completedLevels = loadProgress('completedLevels') || {}
@@ -28,14 +29,27 @@ onMounted(() => {
     isLevelCompleted.value,
   ) // Debug logging
 })
+
+const handleMouseEnter = () => {
+  isHovered.value = true
+  if (props.level.tasks && props.level.tasks.length > 0) {
+    const randomIndex = Math.floor(Math.random() * props.level.tasks.length)
+    hoveredTask.value = props.level.tasks[randomIndex]
+  }
+}
+
+const handleMouseLeave = () => {
+  isHovered.value = false
+  hoveredTask.value = null
+}
 </script>
 
 <template>
   <div class="bg-white rounded-xl shadow-md relative p-2 sm:p-4">
     <div
       class="p-2 sm:p-4 relative group"
-      @mouseenter="isHovered = true"
-      @mouseleave="isHovered = false"
+      @mouseenter="handleMouseEnter"
+      @mouseleave="handleMouseLeave"
     >
       <RouterLink
         :to="`/topics/${props.topic.id}/level/${props.level.level}`"
@@ -53,7 +67,9 @@ onMounted(() => {
             Level {{ props.level.level }}
           </h2>
           <p class="text-sm sm:text-lg font-semibold text-white">
-            {{ props.level.title }}
+            {{
+              isHovered && hoveredTask ? hoveredTask.problem : props.level.title
+            }}
           </p>
         </div>
       </RouterLink>
