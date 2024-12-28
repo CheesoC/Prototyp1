@@ -36,7 +36,7 @@ const isLevelCompleted = (topicId, levelId) => {
   <section class="bg-gray-100 py-8 sm:py-10">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <h1 class="text-3xl sm:text-4xl font-bold text-center mb-4 sm:mb-6">
-        Progress
+        PROGRESS
       </h1>
       <div
         v-if="state.isLoading"
@@ -47,20 +47,27 @@ const isLevelCompleted = (topicId, levelId) => {
       <div v-else>
         <div v-for="topic in state.topics" :key="topic.id" class="mb-6">
           <h2 class="text-2xl font-bold mb-4">{{ topic.title }}</h2>
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div
+          <div class="grid grid-cols-5 gap-2">
+            <RouterLink
               v-for="level in topic.levels"
               :key="level.level"
-              :class="[
-                'p-4 rounded-lg text-center',
-                isLevelCompleted(topic.id, level.level)
-                  ? 'bg-green-500 text-white'
-                  : 'bg-blue-500 text-white',
-              ]"
+              :to="`/topics/${topic.id}/level/${level.level}`"
+              class="block"
             >
-              <h3 class="text-xl font-bold">Level {{ level.level }}</h3>
-              <p>{{ level.title }}</p>
-            </div>
+              <div
+                :class="[
+                  'p-1 rounded-lg text-center flex flex-col justify-center items-center cursor-pointer',
+                  isLevelCompleted(topic.id, level.level)
+                    ? 'bg-green-500 text-white'
+                    : 'bg-blue-500 text-white',
+                ]"
+                :style="{ fontSize: '0.75rem', padding: '0.5rem' }"
+                @click="goToLevel(topic.id, level.level)"
+              >
+                <h3 class="text-sm font-bold">Level {{ level.level }}</h3>
+                <p class="hidden sm:block">{{ level.title }}</p>
+              </div>
+            </RouterLink>
           </div>
         </div>
       </div>
