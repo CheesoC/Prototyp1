@@ -11,6 +11,7 @@ const router = useRouter()
 const correctSound = new Audio('/sounds/correct.mp3')
 const falseSound = new Audio('/sounds/false.mp3')
 const levelCompleteSound = new Audio('/sounds/levelpass.mp3')
+const levelFailSound = new Audio('/sounds/levelfail.mp3')
 
 // Solution Checking
 const emit = defineEmits(['solutionChecked', 'levelCompleted'])
@@ -18,6 +19,8 @@ const userInput = ref('')
 
 const shownTaskIds = ref([])
 const completedTaskCount = ref(0)
+let mistakes = 0
+let skips = 0
 
 // Modified loadRandomTask function
 const loadRandomTask = () => {
@@ -26,9 +29,9 @@ const loadRandomTask = () => {
     let availableTasks = state.level.tasks.filter(
       task => !shownTaskIds.value.includes(task.taskId),
     )
-
+    console.log(availableTasks.length)
     // Reset if all tasks have been shown
-    if (availableTasks.length === 0 || completedTaskCount.value >= 5) {
+    if (completedTaskCount.value >= 5) {
       shownTaskIds.value = []
       availableTasks = state.level.tasks
       emit('levelCompleted')
@@ -52,7 +55,15 @@ const loadRandomTask = () => {
 }
 
 const skipTask = () => {
-  loadRandomTask()
+  skips++
+  if (skips > 2) {
+    toast.error('No more skips left!')
+    setTimeout(() => {
+      falseSound.play()
+    }, 200)
+  } else {
+    loadRandomTask()
+  }
 }
 
 const checkSolution = () => {
@@ -71,10 +82,21 @@ const checkSolution = () => {
     }
     loadRandomTask()
   } else {
-    toast.error('Incorrect, try again.')
-    setTimeout(() => {
-      falseSound.play()
-    }, 200)
+    mistakes++
+    if (mistakes > 2) {
+      router.back()
+      setTimeout(() => {
+        toast.error('Too many mistakes! Try again.')
+        setTimeout(() => {
+          levelFailSound.play()
+        }, 200)
+      }, 300)
+    } else {
+      toast.error('Incorrect, try again.')
+      setTimeout(() => {
+        falseSound.play()
+      }, 200)
+    }
   }
 }
 
