@@ -6,8 +6,10 @@ import NavbarItem from '@/components/NavbarItem.vue'
 </script>
 
 <template>
-  <NavbarItem />
-  <HeroItem />
-  <TopicListings :limit="3" :showButton="true" />
-  <ImpressumItem />
+  <div style="padding-top: 5rem">
+    <NavbarItem />
+    <HeroItem />
+    <TopicListings :limit="3" :showButton="true" />
+    <ImpressumItem />
+  </div>
 </template>

@@ -31,59 +31,65 @@ onMounted(async () => {
 </script>
 
 <template>
-  <NavbarItem />
-  <section
-    v-if="!state.isLoading"
-    class="transition-all duration-300 bg-gray-100 text-black"
-  >
-    <div
-      class="container mx-auto py-4 sm:py-6 md:py-8 lg:py-10 px-4 sm:px-6 lg:px-8"
+  <div style="padding-top: 5rem">
+    <NavbarItem />
+    <section
+      v-if="!state.isLoading"
+      class="transition-all duration-300 bg-gray-100 text-black"
     >
-      <div class="grid grid-cols-1 md:grid-cols-70/30 w-full gap-6">
-        <main>
-          <div
-            class="bg-white p-2 sm:p-4 rounded-lg shadow-md text-center md:text-left"
-          >
+      <div
+        class="container mx-auto py-4 sm:py-6 md:py-8 lg:py-10 px-4 sm:px-6 lg:px-8"
+      >
+        <div class="grid grid-cols-1 md:grid-cols-70/30 w-full gap-6">
+          <main>
             <div
-              class="flex items-center justify-center md:justify-start gap-2"
+              class="bg-white p-2 sm:p-4 rounded-lg shadow-md text-center md:text-left"
             >
-              <h1 class="text-xl sm:text-2xl font-bold">
-                {{ state.topic.title }}
-              </h1>
-              <button
-                @click="state.showDescription = !state.showDescription"
-                class="text-blue-800 hover:text-blue-900"
+              <div
+                class="flex items-center justify-center md:justify-start gap-2"
               >
-                <i
-                  class="pi"
-                  :class="
-                    state.showDescription ? 'pi-chevron-up' : 'pi-chevron-down'
-                  "
-                ></i>
-              </button>
+                <h1 class="text-xl sm:text-2xl font-bold">
+                  {{ state.topic.title }}
+                </h1>
+                <button
+                  @click="state.showDescription = !state.showDescription"
+                  class="text-blue-800 hover:text-blue-900"
+                >
+                  <i
+                    class="pi"
+                    :class="
+                      state.showDescription
+                        ? 'pi-chevron-up'
+                        : 'pi-chevron-down'
+                    "
+                  ></i>
+                </button>
+              </div>
+              <p v-if="state.showDescription" class="mt-2">
+                {{ state.topic.description }}
+              </p>
             </div>
-            <p v-if="state.showDescription" class="mt-2">
-              {{ state.topic.description }}
-            </p>
-          </div>
-        </main>
-      </div>
-      <!-- Card Items Grid -->
-      <div class="grid grid-cols-2 sm:grid-cols-3 gap-4 sm:gap-6 mt-4 sm:mt-6">
-        <CardItem
-          v-for="level in state.topic.levels"
-          :key="level.level"
-          :topic="state.topic"
-          :level="level"
+          </main>
+        </div>
+        <!-- Card Items Grid -->
+        <div
+          class="grid grid-cols-2 sm:grid-cols-3 gap-4 sm:gap-6 mt-4 sm:mt-6"
         >
-          <h2 class="text-2xl font-bold mb-2 text-white">
-            Level {{ level.level }}
-          </h2>
-        </CardItem>
+          <CardItem
+            v-for="level in state.topic.levels"
+            :key="level.level"
+            :topic="state.topic"
+            :level="level"
+          >
+            <h2 class="text-2xl font-bold mb-2 text-white">
+              Level {{ level.level }}
+            </h2>
+          </CardItem>
+        </div>
       </div>
+    </section>
+    <div v-else class="text-center text-gray-500 py-6">
+      <PulseLoader color="#1D4ED8" />
     </div>
-  </section>
-  <div v-else class="text-center text-gray-500 py-6">
-    <PulseLoader color="#1D4ED8" />
   </div>
 </template>

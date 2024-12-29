@@ -4,6 +4,8 @@ import NavbarItem from '@/components/NavbarItem.vue'
 </script>
 
 <template>
-  <NavbarItem />
-  <TopicListings />
+  <div style="padding-top: 5rem">
+    <NavbarItem />
+    <TopicListings />
+  </div>
 </template>
