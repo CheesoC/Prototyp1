@@ -33,10 +33,7 @@ onMounted(async () => {
 <template>
   <div style="padding-top: 5rem">
     <NavbarItem />
-    <section
-      v-if="!state.isLoading"
-      class="transition-all duration-300 bg-gray-100 text-black"
-    >
+    <section v-if="!state.isLoading" class="bg-gray-100 text-black">
       <div
         class="container mx-auto py-4 sm:py-6 md:py-8 lg:py-10 px-4 sm:px-6 lg:px-8"
       >

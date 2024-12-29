@@ -45,9 +45,7 @@ const handleMouseLeave = () => {
 </script>
 
 <template>
-  <div
-    class="transition-all duration-300 bg-white rounded-xl shadow-md relative p-2 sm:p-4"
-  >
+  <div class="bg-white rounded-xl shadow-md relative p-2 sm:p-4">
     <div
       class="p-2 sm:p-4 relative group"
       @mouseenter="handleMouseEnter"
