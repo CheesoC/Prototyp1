@@ -1,7 +1,7 @@
 <script setup>
 import { RouterLink } from 'vue-router'
 import TopicListing from './TopicListing.vue'
-import { reactive, defineProps, onMounted } from 'vue'
+import { reactive, defineProps, onMounted, ref, computed } from 'vue'
 import PulseLoader from 'vue-spinner/src/PulseLoader.vue'
 import axios from 'axios'
 
@@ -11,11 +11,26 @@ defineProps({
     type: Boolean,
     default: false,
   },
+  showSearchBar: {
+    type: Boolean,
+    default: true,
+  },
 })
 
 const state = reactive({
   topics: [],
   isLoading: true,
+})
+
+const searchQuery = ref('')
+
+const filteredTopics = computed(() => {
+  if (!searchQuery.value) {
+    return state.topics
+  }
+  return state.topics.filter(topic =>
+    topic.title.toLowerCase().includes(searchQuery.value.toLowerCase()),
+  )
 })
 
 onMounted(async () => {
@@ -36,14 +51,33 @@ onMounted(async () => {
       <h2 class="text-3xl font-bold text-blue-800 mb-6 text-center">
         BROWSE TOPICS
       </h2>
-      <!--Show loading spinner while loading is true-->
+      <!-- Search Input -->
+      <div v-if="showSearchBar" class="mb-6">
+        <input
+          v-model="searchQuery"
+          type="text"
+          placeholder="Search for a topic..."
+          class="w-full p-2 border border-gray-300 rounded"
+        />
+      </div>
+      <!-- Show loading spinner while loading is true -->
       <div v-if="state.isLoading" class="flex justify-center items-center p-4">
         <PulseLoader color="#1D4ED8" />
       </div>
-      <!--Show topic listings when loading is false-->
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <!-- Show message if no topics match the search query -->
+      <div
+        v-else-if="filteredTopics.length === 0"
+        class="text-center text-gray-500"
+      >
+        Sorry, "{{ searchQuery }}" does not match any topics &#128577;
+      </div>
+      <!-- Show topic listings when loading is false -->
+      <div v-else class="grid grid-cols-1 md:grid-cols-3 gap-6">
         <TopicListing
-          v-for="topic in state.topics.slice(0, limit || state.topics.length)"
+          v-for="topic in filteredTopics.slice(
+            0,
+            limit || filteredTopics.length,
+          )"
           :key="topic.id"
           :topic="topic"
         />
