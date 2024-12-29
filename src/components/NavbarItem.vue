@@ -1,16 +1,17 @@
 <script setup>
 import { RouterLink, useRoute, useRouter } from 'vue-router'
 import logo from '@/assets/img/logo.png'
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 
 const router = useRouter()
 const route = useRoute()
 const isDarkMode = ref(false)
+const isMenuOpen = ref(false)
+
 const goBack = () => {
   router.back()
 }
 
-const isMenuOpen = ref(false)
 const toggleMenu = () => {
   isMenuOpen.value = !isMenuOpen.value
 }
@@ -27,10 +28,23 @@ const toggleDarkMode = () => {
   isDarkMode.value = !isDarkMode.value
   if (isDarkMode.value) {
     document.documentElement.classList.add('dark')
+    localStorage.setItem('darkMode', 'true')
   } else {
     document.documentElement.classList.remove('dark')
+    localStorage.setItem('darkMode', 'false')
   }
 }
+
+onMounted(() => {
+  const savedDarkMode = localStorage.getItem('darkMode')
+  if (savedDarkMode === 'true') {
+    isDarkMode.value = true
+    document.documentElement.classList.add('dark')
+  } else {
+    isDarkMode.value = false
+    document.documentElement.classList.remove('dark')
+  }
+})
 </script>
 
 <template>
