@@ -10,14 +10,14 @@ import App from './App.vue'
 // Toast configuration options
 const toastOptions = {
   position: 'top-center',
-  timeout: 2000,
+  timeout: 1800,
   closeOnClick: true,
   pauseOnFocusLoss: true,
   pauseOnHover: false,
   draggable: true,
   draggablePercent: 0.6,
   showCloseButtonOnHover: false,
-  hideProgressBar: true,
+  hideProgressBar: false,
   closeButton: 'button',
   icon: true,
   rtl: false,

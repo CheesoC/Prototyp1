@@ -13,7 +13,7 @@ function handleClick() {
 
   setTimeout(() => {
     isDisabled.value = false
-  }, 2000) // Adjust the debounce time as needed
+  }, 1500) // Adjust the debounce time as needed
 }
 
 function handleKeydown(event) {
