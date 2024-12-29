@@ -32,7 +32,10 @@ onMounted(async () => {
 
 <template>
   <NavbarItem />
-  <section v-if="!state.isLoading" class="bg-blue-100">
+  <section
+    v-if="!state.isLoading"
+    class="transition-all duration-300 bg-gray-100 text-black"
+  >
     <div
       class="container mx-auto py-4 sm:py-6 md:py-8 lg:py-10 px-4 sm:px-6 lg:px-8"
     >
@@ -49,7 +52,7 @@ onMounted(async () => {
               </h1>
               <button
                 @click="state.showDescription = !state.showDescription"
-                class="text-blue-500 hover:text-blue-700"
+                class="text-blue-800 hover:text-blue-900"
               >
                 <i
                   class="pi"
@@ -59,7 +62,7 @@ onMounted(async () => {
                 ></i>
               </button>
             </div>
-            <p v-if="state.showDescription" class="mt-2 text-gray-600">
+            <p v-if="state.showDescription" class="mt-2">
               {{ state.topic.description }}
             </p>
           </div>

@@ -24,7 +24,7 @@ const truncatedDescription = computed(() => {
 </script>
 
 <template>
-  <div class="bg-white rounded-xl shadow-md relative">
+  <div class="bg-white text-black rounded-xl shadow-md relative">
     <div class="p-3 sm:p-4">
       <div class="mb-4 sm:mb-6">
         <h3 class="text-lg sm:text-xl font-bold">{{ topic.title }}</h3>
@@ -34,16 +34,16 @@ const truncatedDescription = computed(() => {
         <div>{{ truncatedDescription }}</div>
         <button
           @click="toggleFullDescription"
-          class="text-blue-500 hover:text-blue-600 mb-5"
+          class="text-blue-800 hover:text-blue-900 mb-5"
         >
           {{ showFullDescription ? 'Less' : 'More' }}
         </button>
       </div>
 
-      <div class="border border-gray-100 mb-5"></div>
+      <div class="border-b border-gray-900 mb-5"></div>
       <RouterLink
         :to="'/topics/' + topic.id"
-        class="h-[36px] bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg text-center text-sm"
+        class="h-[36px] bg-blue-800 hover:bg-blue-900 text-white px-4 py-2 rounded-lg text-center text-sm"
       >
         START
       </RouterLink>

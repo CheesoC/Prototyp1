@@ -1,10 +1,12 @@
 <script setup>
 import { RouterLink } from 'vue-router'
+import NavbarItem from '@/components/NavbarItem.vue'
 </script>
 
 <template>
+  <NavbarItem />
   <section
-    class="text-center flex flex-col justify-center items-center min-h-[24rem] sm:h-96"
+    class="text-black text-center flex flex-col justify-center items-center min-h-[24rem] sm:h-96"
   >
     <i
       class="pi pi-exclamation-triangle text-yellow-500 text-6xl sm:text-8xl mb-3 sm:mb-5"
@@ -13,7 +15,7 @@ import { RouterLink } from 'vue-router'
     <p class="text-lg sm:text-xl mb-3 sm:mb-5">This page does not exist</p>
     <RouterLink
       to="/"
-      class="text-white bg-blue-700 hover:bg-blue-900 rounded-md px-3 py-2 mt-4"
+      class="text-white bg-blue-800 hover:bg-blue-900 rounded-md px-3 py-2 mt-4"
       >Go Back</RouterLink
     >
   </section>

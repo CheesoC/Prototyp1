@@ -31,9 +31,9 @@ onMounted(async () => {
 </script>
 
 <template>
-  <section class="bg-blue-100 px-4 py-10">
+  <section class="bg-gray-100 border-b border-gray-900 px-4 py-10">
     <div class="container-xl lg:container m-auto">
-      <h2 class="text-3xl font-bold text-blue-500 mb-6 text-center">
+      <h2 class="text-3xl font-bold text-blue-800 mb-6 text-center">
         BROWSE TOPICS
       </h2>
       <!--Show loading spinner while loading is true-->

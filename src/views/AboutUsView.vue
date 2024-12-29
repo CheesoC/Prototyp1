@@ -7,10 +7,10 @@ import NavbarItem from '@/components/NavbarItem.vue'
   <NavbarItem />
   <section class="bg-gray-100 py-8 sm:py-10">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <h1 class="text-3xl sm:text-4xl font-bold text-center mb-4 sm:mb-6">
+      <h2 class="text-3xl font-bold text-blue-800 mb-6 text-center">
         ABOUT US
-      </h1>
-      <div class="text-base sm:text-lg text-gray-700">
+      </h2>
+      <div class="text-base sm:text-lg text-black">
         <p class="mb-3 sm:mb-4">
           Welcome to our educational platform, a place where you can enhance
           your algebra skills through interactive and engaging exercises. Our

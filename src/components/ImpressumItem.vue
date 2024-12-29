@@ -1,12 +1,14 @@
 <script setup></script>
 
 <template>
-  <section class="bg-gray-300 py-6 sm:py-10 mb-4">
+  <section
+    class="bg-gray-300 border border-gray-900 text-black dark:bg-gray-950 py-6 sm:py-10"
+  >
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <h1 class="text-2xl sm:text-3xl font-bold text-center mb-4 sm:mb-6">
         IMPRESSUM
       </h1>
-      <div class="text-base sm:text-lg text-gray-700">
+      <div class="text-base sm:text-lg">
         <p class="mb-3 sm:mb-4"><strong>Company Name:</strong> Ez Ed-Tech</p>
         <p class="mb-3 sm:mb-4">
           <strong>Address:</strong> Max Mustermann Straße 8

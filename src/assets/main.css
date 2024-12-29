@@ -1,4 +1,43 @@
+/* Example styles in src/assets/main.css */
 @import '../../_theme_files/css/styles.css';
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Apply transition-all duration-300 to all elements */
+* {
+  @apply transition-all duration-300;
+}
+
+/* Custom dark mode styles */
+.dark .bg-white {
+  background-color: #000000; /* Dark background color */
+}
+
+.dark .bg-gray-100 {
+  background-color: #1a202c; /* Tailwind's bg-gray-800 */
+}
+
+.dark .bg-gray-300 {
+  background-color: #718096; /* Tailwind's bg-gray-800 */
+}
+
+.dark .bg-black {
+  background-color: #ffffff; /* Dark mode text color */
+}
+
+.dark .text-white {
+  color: #000000; /* Dark mode text color */
+}
+
+.dark .text-black {
+  color: #ffffff; /* Dark mode text color */
+}
+
+.dark .bg-blue-800 {
+  background-color: #3488fd;
+}
+
+.dark .text-blue-800 {
+  color: #3488fd;
+}

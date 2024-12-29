@@ -111,7 +111,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="min-h-screen flex flex-col">
+  <div class="text-black min-h-screen flex flex-col">
     <div v-if="!state.isLoading">
       <div class="text-center p-4">
         <h1
@@ -132,7 +132,7 @@ onMounted(async () => {
           v-model="userInput"
           type="text"
           inputmode="decimal"
-          class="ml-2 sm:ml-3 md:ml-4 w-20 sm:w-24 md:w-28 lg:w-32 xl:w-36 text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-4xl p-1 sm:p-1.5 md:p-2 lg:p-2.5 xl:p-3 border border-gray-300 rounded"
+          class="dark:text-black ml-2 sm:ml-3 md:ml-4 w-20 sm:w-24 md:w-28 lg:w-32 xl:w-36 text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-4xl p-1 sm:p-1.5 md:p-2 lg:p-2.5 xl:p-3 border border-gray-300 rounded"
         />
       </div>
     </div>

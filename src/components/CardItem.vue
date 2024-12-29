@@ -45,7 +45,9 @@ const handleMouseLeave = () => {
 </script>
 
 <template>
-  <div class="bg-white rounded-xl shadow-md relative p-2 sm:p-4">
+  <div
+    class="transition-all duration-300 bg-white rounded-xl shadow-md relative p-2 sm:p-4"
+  >
     <div
       class="p-2 sm:p-4 relative group"
       @mouseenter="handleMouseEnter"
@@ -57,10 +59,10 @@ const handleMouseLeave = () => {
       >
         <div
           :class="[
-            'transition-all duration-300 hover:scale-105 h-auto min-h-[100px] sm:min-h-[150px] rounded-lg flex flex-col items-center justify-center text-center cursor-pointer',
+            'hover:scale-105 h-auto min-h-[100px] sm:min-h-[150px] rounded-lg flex flex-col items-center justify-center text-center cursor-pointer',
             isLevelCompleted
               ? 'bg-green-500 hover:bg-green-600'
-              : 'bg-blue-500 hover:bg-blue-600',
+              : 'bg-blue-800 hover:bg-blue-900',
           ]"
         >
           <h2 class="text-lg sm:text-2xl font-bold mb-1 sm:mb-2 text-white">
